@@ -84,3 +84,15 @@ a {
   font-family: monospace;
 
 }
+/* Pranjal birthday edition: keep the original canvas coordinate system,
+   but scale the whole scene down on smaller screens. */
+@media (max-width: 1100px) {
+  body { overflow-x: hidden; }
+  #wrap {
+    transform-origin: top center;
+    transform: scale(calc(100vw / 1100));
+    width: 1100px;
+    margin-left: calc((100vw - 1100px) / 2);
+    margin-right: 0;
+  }
+}
