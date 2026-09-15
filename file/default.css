@@ -44,7 +44,8 @@ a {
   left: 60px;
   top: 550px;
   font-size: 28px;
-  display: none;
+  display: block;
+  z-index: 5;
 }
 #clock-box a {
   font-size: 28px;
@@ -79,10 +80,11 @@ a {
 
 #message-box{
   position: absolute;
-  margin-top:450px;
+  left: 88px;
+  top: 455px;
   font-size: 25px;
   font-family: monospace;
-
+  z-index: 5;
 }
 /* Pranjal birthday edition: keep the original canvas coordinate system,
    but scale the whole scene down on smaller screens. */
