@@ -58,8 +58,8 @@
             return false;
         }
 
-        var width = canvas.width();
-        var height = canvas.height();        
+        var width = 1100;
+        var height = 680;
         canvas.attr("width", width);
         canvas.attr("height", height);
 
@@ -182,26 +182,10 @@
         runAsync().start();
 
         // Pranjal was born on 16 September 2009.
-        // Standalone counter: updates directly so it cannot be hidden by the animation.
+        // The counter shows the total time since the start of that birthday.
         var birthDate = new Date(2009, 8, 16, 0, 0, 0);
         function updateAgeCounter() {
-            var now = new Date();
-            var elapsed = Math.max(0, Math.floor((now.getTime() - birthDate.getTime()) / 1000));
-            var days = Math.floor(elapsed / 86400);
-            elapsed %= 86400;
-            var hours = Math.floor(elapsed / 3600);
-            elapsed %= 3600;
-            var minutes = Math.floor(elapsed / 60);
-            var seconds = elapsed % 60;
-            hours = String(hours).padStart(2, '0');
-            minutes = String(minutes).padStart(2, '0');
-            seconds = String(seconds).padStart(2, '0');
-            document.getElementById('clock').innerHTML =
-                'Days <span class="digit">' + days + '</span> ' +
-                'Hours <span class="digit">' + hours + '</span> ' +
-                'Minutes <span class="digit">' + minutes + '</span> ' +
-                'Seconds <span class="digit">' + seconds + '</span>';
-            document.getElementById('clock-box').style.display = 'block';
+            timeElapse(birthDate);
         }
         updateAgeCounter();
         setInterval(updateAgeCounter, 1000);

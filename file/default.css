@@ -40,31 +40,25 @@ a {
   font-weight: bolder;
 }
 #clock-box {
-  position: absolute !important;
-  left: 55px !important;
-  top: 535px !important;
-  width: auto !important;
-  height: auto !important;
-  font-size: 22px !important;
+  position: absolute;
+  left: 60px;
+  top: 550px;
+  font-size: 28px;
   display: block !important;
+  z-index: 9999;
+  color: #fff;
+  white-space: nowrap;
   visibility: visible !important;
-  opacity: 1 !important;
-  z-index: 100000 !important;
-  color: #fff !important;
-  white-space: nowrap !important;
-  pointer-events: none;
-  text-shadow: 2px 2px 4px #000;
 }
 #clock-box a {
   font-size: 28px;
   text-decoration: none;
 }
 #clock {
-  margin-left: 0 !important;
-  display: inline-block !important;
-  color: #fff !important;
+  margin-left: 48px;
+  display: inline-block;
+  color: #fff;
   visibility: visible !important;
-  opacity: 1 !important;
 }
 #clock .digit {
   font-size: 52px;
@@ -104,9 +98,94 @@ a {
   font-family: monospace;
   z-index: 5;
 }
-/* Pranjal birthday edition: keep the original canvas coordinate system,
-   but scale the whole scene down on smaller screens. */
-@media (max-width: 1100px) {
+/* Responsive layout for phones and tablets */
+@media (max-width: 700px) {
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-position: center top;
+    background-size: cover;
+  }
+
+  #wrap {
+    position: relative;
+    width: 100vw;
+    height: 61.818vw;
+    min-height: 0;
+    margin: 0;
+    overflow: visible;
+  }
+
+  #canvas {
+    display: block;
+    width: 100vw !important;
+    height: 61.818vw !important;
+    max-width: none;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  /* The original artwork is 1100 x 680. These percentages keep the
+     text/counter anchored to the same places when the canvas shrinks. */
+  #text {
+    width: 24.73vw;
+    height: auto;
+    left: 17.09vw;
+    top: 7.27vw;
+    position: absolute;
+    z-index: 20;
+  }
+
+  #code {
+    margin-top: 0;
+    font-size: clamp(9px, 1.45vw, 16px);
+    line-height: 1.55;
+    text-shadow: 1px 1px 3px #000;
+  }
+
+  .say { margin-left: 0; }
+
+  #message-box {
+    left: 8vw;
+    top: 41.36vw;
+    font-size: clamp(9px, 2.0vw, 18px);
+    z-index: 30;
+    max-width: 84vw;
+  }
+
+  #clock-box {
+    left: 4vw !important;
+    top: 49.5vw !important;
+    width: 92vw !important;
+    height: auto !important;
+    font-size: clamp(8px, 1.7vw, 15px) !important;
+    text-align: center;
+    white-space: normal !important;
+    z-index: 50 !important;
+    text-shadow: 1px 1px 3px #000;
+    pointer-events: none;
+  }
+
+  #clock {
+    margin-left: 0 !important;
+  }
+
+  #clock .digit {
+    font-size: clamp(18px, 4.8vw, 42px) !important;
+    min-width: .9em;
+  }
+
+  #error { margin-top: 20px; }
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
   body { overflow-x: hidden; }
   #wrap {
     transform-origin: top center;
