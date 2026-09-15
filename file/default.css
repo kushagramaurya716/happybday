@@ -4,194 +4,278 @@ body {
   background-image: url('../img2.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
   font-size: 14px;
   font-family: sans-serif;
   color: white;
-  overflow: auto;
+  overflow-x: hidden;
 }
-a {
-  color: white;
-  font-size: 14px;
-}
-#main {
-  width: 100%;
-}
+
+a { color: white; font-size: 14px; }
+#main { width: 100%; }
+
 #wrap {
   position: relative;
   margin: 0 auto;
   width: 1100px;
+  min-height: 1080px;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: 1100px 680px !important;
+}
+
+#canvas {
+  display: block;
+  margin: 0 auto;
+  width: 1100px;
   height: 680px;
-  margin-top: 10px;
-}
-#text {
-  width: 272px;
-  height: 560px;
-  left: 188px;
-  top: 80px;
   position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
-#code {
-  display: none;
-  color: rgb(196, 255, 255);
-  font-size: 16px;
-  margin-top: 70px;
-  line-height: 25px;
-  font-size: larger;
-  font-weight: bolder;
+
+/* The original animation finishes with the tree on the right.
+   Keep the title and counter above the message, and put the long message
+   in a small internal scroll box on the left. */
+#message-box {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 1100px;
+  height: 30px;
+  display: block !important;
+  z-index: 50;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  line-height: 30px;
+  font-family: monospace;
+  text-shadow: 2px 2px 4px #000;
+  white-space: nowrap;
+  pointer-events: none;
 }
+
 #clock-box {
   position: absolute;
-  left: 60px;
-  top: 550px;
-  font-size: 28px;
+  left: 0;
+  top: 48px;
+  width: 1100px;
+  font-size: 16px;
   display: block !important;
-  z-index: 9999;
+  z-index: 50;
   color: #fff;
   white-space: nowrap;
   visibility: visible !important;
+  text-align: center;
+  text-shadow: 1px 1px 3px #000;
+  pointer-events: none;
 }
-#clock-box a {
-  font-size: 28px;
-  text-decoration: none;
-}
-#clock {
-  margin-left: 48px;
-  display: inline-block;
-  color: #fff;
-  visibility: visible !important;
-}
+
+#clock-box a { font-size: 16px; text-decoration: none; }
+#clock { margin-left: 0; display: inline-block; color: #fff; visibility: visible !important; }
 #clock .digit {
-  font-size: 52px;
+  font-size: 30px;
   color: #fff;
   display: inline-block;
   min-width: 1.1em;
   text-align: center;
 }
-#canvas {
-  margin: 0 auto;
-  width: 1100px;
-  height: 680px;
-  position: relative;
-  z-index: 1;
-}
-#error {
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 60px;
-  display: none;
-}
-.hand {
-  cursor: pointer;
-}
-.say {
-  margin-left: 5px;
-}
-.space {
-  margin-right: 150px;
-}
 
-#message-box{
+#text {
   position: absolute;
-  left: 88px;
-  top: 455px;
-  font-size: 25px;
-  font-family: monospace;
-  z-index: 5;
+  left: 48px;
+  top: 185px;
+  width: 420px;
+  height: 350px;
+  z-index: 40;
+  box-sizing: border-box;
 }
-/* Responsive layout for phones and tablets */
-@media (max-width: 700px) {
-  html, body {
-    width: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
-  }
 
+/* Only this box scrolls. The page itself does not need to move. */
+#code {
+  display: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 22px 24px;
+  color: rgb(196, 255, 255);
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: bolder;
+  text-shadow: 1px 1px 3px #000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: normal;
+  scrollbar-width: thin;
+  background: rgba(0, 0, 35, 0.38);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+
+#code::-webkit-scrollbar { width: 7px; }
+#code::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.45); border-radius: 8px; }
+
+.message-page {
+  display: block;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  margin: 0 0 22px 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  text-align: left;
+  white-space: normal;
+}
+
+.message-page:last-child { margin-bottom: 0; }
+.message-page .say { margin-left: 0; }
+
+#error { margin: 0 auto; text-align: center; margin-top: 60px; display: none; }
+.hand { cursor: pointer; }
+.say { margin-left: 5px; }
+.space { margin-right: 150px; }
+
+@media (max-width: 1100px) {
   body {
-    background-position: center top;
-    background-size: cover;
+    overflow: hidden;
+    background-attachment: fixed;
   }
 
   #wrap {
-    position: relative;
     width: 100vw;
-    height: 61.818vw;
+    height: 100vw;
     min-height: 0;
     margin: 0;
-    overflow: visible;
+    overflow: hidden;
+    background-size: 100vw 61.818vw !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
   }
 
   #canvas {
-    display: block;
     width: 100vw !important;
     height: 61.818vw !important;
-    max-width: none;
-    margin: 0;
-    position: absolute;
     left: 0;
     top: 0;
-    z-index: 1;
   }
-
-  /* The original artwork is 1100 x 680. These percentages keep the
-     text/counter anchored to the same places when the canvas shrinks. */
-  #text {
-    width: 24.73vw;
-    height: auto;
-    left: 17.09vw;
-    top: 7.27vw;
-    position: absolute;
-    z-index: 20;
-  }
-
-  #code {
-    margin-top: 0;
-    font-size: clamp(9px, 1.45vw, 16px);
-    line-height: 1.55;
-    text-shadow: 1px 1px 3px #000;
-  }
-
-  .say { margin-left: 0; }
 
   #message-box {
-    left: 8vw;
-    top: 41.36vw;
-    font-size: clamp(9px, 2.0vw, 18px);
-    z-index: 30;
-    max-width: 84vw;
+    top: 4px;
+    width: 100vw;
+    height: 22px;
+    font-size: clamp(10px, 2.8vw, 18px);
+    line-height: 22px;
   }
 
   #clock-box {
-    left: 4vw !important;
-    top: 49.5vw !important;
-    width: 92vw !important;
-    height: auto !important;
-    font-size: clamp(8px, 1.7vw, 15px) !important;
-    text-align: center;
-    white-space: normal !important;
-    z-index: 50 !important;
-    text-shadow: 1px 1px 3px #000;
-    pointer-events: none;
+    top: 27px;
+    width: 100vw;
+    font-size: clamp(8px, 2.3vw, 16px);
   }
 
-  #clock {
-    margin-left: 0 !important;
+  #clock-box a { font-size: inherit; }
+  #clock .digit { font-size: clamp(16px, 4.5vw, 28px); }
+
+  /* The tree stays on the right; the message box occupies the left side. */
+  #text {
+    left: 3vw;
+    top: 18vw;
+    width: 43vw;
+    height: 38vw;
+  }
+
+  #code {
+    width: 100%;
+    height: 100%;
+    padding: 3vw 2.5vw;
+    font-size: clamp(10px, 2.65vw, 15px);
+    line-height: 1.55;
+    border-radius: 9px;
+  }
+
+  .message-page {
+    margin-bottom: 4vw;
+  }
+}
+#error { margin: 0 auto; text-align: center; margin-top: 60px; display: none; }
+.hand { cursor: pointer; }
+.say { margin-left: 5px; }
+.space { margin-right: 150px; }
+
+
+@media (max-width: 1100px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  #wrap {
+    width: 100vw;
+    min-height: calc(61.818vw + 390px);
+    margin: 0;
+    background-size: 100vw 61.818vw !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+  }
+
+  #canvas {
+    width: 100vw !important;
+    height: 61.818vw !important;
+    left: 0;
+    top: 0;
+  }
+
+  #message-box {
+    top: calc(61.818vw + 8px);
+    left: 0;
+    width: 100vw;
+    height: 28px;
+    font-size: clamp(12px, 3.1vw, 20px);
+    line-height: 28px;
+    white-space: nowrap;
+  }
+
+  #clock-box {
+    top: calc(61.818vw + 38px);
+    left: 0;
+    width: 100vw;
+    font-size: clamp(10px, 2.7vw, 18px);
+    white-space: nowrap;
   }
 
   #clock .digit {
-    font-size: clamp(18px, 4.8vw, 42px) !important;
-    min-width: .9em;
+    font-size: clamp(20px, 5vw, 32px);
   }
 
-  #error { margin-top: 20px; }
-}
+  #text {
+    left: 0;
+    top: calc(61.818vw + 95px);
+    width: 100vw;
+    height: 255px;
+  }
 
-@media (min-width: 701px) and (max-width: 1100px) {
-  body { overflow-x: hidden; }
-  #wrap {
-    transform-origin: top center;
-    transform: scale(calc(100vw / 1100));
-    width: 1100px;
-    margin-left: calc((100vw - 1100px) / 2);
-    margin-right: 0;
+  #code {
+    width: 100vw;
+    height: 255px;
+    padding: 0 4vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+  }
+
+  .message-page {
+    width: 84vw;
+    min-width: 84vw;
+    height: 240px;
+    margin: 0 4vw;
+    padding: 22px 20px;
+    font-size: clamp(13px, 3.8vw, 17px);
+    line-height: 22px;
   }
 }
